@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>新規分析</h1>
+<form action="{{ url_for('analysis') }}" method="post" enctype="multipart/form-data">
+ 
+    <label>タイトル</label>
+    <input class="form-control" type="text" size="30" name="title">
+    <p>データ形式<br>
+    <div class="file_format">
+        <input type="radio" name="upload_data" id="text" value="text"> テキスト入力
+        <input type="radio" name="upload_data" id="file" value="file"> ファイルアップロード
+        </p>
+
+        <label>分析データ</label>
+        <div class="form_file_or_text">
+          <div id="tab_1" ><textarea class="form-control" name="text_data" rows="5" ></textarea></div>
+          <div id="tab_2" ><input type="file" name="file_data" /></div>
+        </div>
+    </div>
+    <p>デフォルト<br>
+    <div class="tab-content">
+        <input type="radio" name="method" id="tab1" value="pca"> 主成分分析
+        <input type="radio" name="method" id="tab2" value="scatter"> 散布図
+        <input type="radio" name="method" id="tab3" value="distribution"> 分布
+        <input type="radio" name="method" id="tab4" value="boxplot"> 箱ひげ図
+		<input type="radio" name="method" id="tab5" value="k_means"> K近傍法
+        </p>
+        <div class="tab-box">
+            <div id="tabView1"><input class="form-control" type="text" name="pca_label">ラベル</div>
+            <div id="tabView2">散布図</div>
+            <div id="tabView3">分布</div>
+            <div id="tabView4">箱ひげ図</div>
+			<div id="tabView5"><input class="form-control" type="text" name="num_cluster">クラスタリング数</div>
+        </div>
+    </div>
+    <input class="btn btn-primary" type="submit" value="送信">
+
+</form>
+
+
+<style>
+  .file_format > .form_file_or_text > div {
+    display: none;
+  }
+
+  #text:checked ~ .form_file_or_text > #tab_1 {
+    display: block;
+  }
+  
+  #file:checked ~ .form_file_or_text > #tab_2 {
+    display: block;
+  }
+
+/*-------------------------------------------------------------*/
+
+  .tab-content > .tab-box > div {
+    display: none;
+  }
+  
+  #tab1:checked ~ .tab-box > #tabView1 {
+    display: block;
+  }
+  
+  #tab2:checked ~ .tab-box > #tabView2 {
+    display: block;
+  }
+  
+  #tab3:checked ~ .tab-box > #tabView3 {
+    display: block;
+  }
+
+  #tab4:checked ~ .tab-box > #tabView4 {
+    display: block;
+  }
+  
+  #tab5:checked ~ .tab-box > #tabView5 {
+    display: block;
+  }
+
+</style>
+{% endblock %}
